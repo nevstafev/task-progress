@@ -121,4 +121,4 @@ const state = {
   },
 };
 
-module.exports = state;
+export default state;

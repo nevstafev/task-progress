@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const timeChangedProcess = require('./timeChangedProcess');
+import express from 'express';
+import cors from 'cors';
+import timeChangedProcess from './timeChangedProcess.js';
 
 const app = express();
 
@@ -25,4 +25,4 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });
 });
 
-module.exports = app;
+export default app;

@@ -1,4 +1,4 @@
-const state = require('./state');
+import state from './state.js';
 
 const timeChangedProcess = {
   getStatus() {
@@ -27,4 +27,4 @@ const timeChangedProcess = {
   }
 };
 
-module.exports = timeChangedProcess;
+export default timeChangedProcess;

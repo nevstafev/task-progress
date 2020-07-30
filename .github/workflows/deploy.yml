@@ -17,3 +17,4 @@ jobs:
           heroku_email: ${{secrets.EMAIL}}
           usedocker: true
           appdir: backend
+          healthcheck: https://task-progress-backend.herokuapp.com/health

@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  deploy-backend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,3 +18,18 @@ jobs:
           usedocker: true
           appdir: backend
           healthcheck: https://task-progress-backend.herokuapp.com/health
+
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.4.6
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: 'task-progress-frontend'
+          heroku_email: ${{secrets.EMAIL}}
+          usedocker: true
+          appdir: frontend
+      env:
+        PORT: 8080
+        BACKEND_API: https://task-progress-backend.herokuapp.com

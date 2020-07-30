@@ -27,4 +27,5 @@ COPY --from=builder ${APP_DIR}/nginx/nginx.conf /etc/nginx/
 
 EXPOSE ${PORT}
 
+RUN chmod +x ${APP_DIR}/docker-entrypoint.sh
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]

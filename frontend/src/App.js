@@ -20,9 +20,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <TextualProgressBar total={total} current={current} name={name} />
-        <form onSubmit={()=> run()}>
-          <input name='iterations' type='number' ></input>
-        </form>
         {actions.some((action) => action === 'run') && (
           <button onClick={run}>Start</button>
         )}

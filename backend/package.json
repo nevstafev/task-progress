@@ -7,7 +7,8 @@
     "node": ">=14"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "start": "node index.js"
   },
   "type": "module",
   "jest": {

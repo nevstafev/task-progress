@@ -6,6 +6,10 @@ const app = express();
 
 app.use(cors());
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' });
+});
+
 app.get('/start', (req, res) => {
   const { iterations } = req.params;
   timeChangedProcess.start(iterations);

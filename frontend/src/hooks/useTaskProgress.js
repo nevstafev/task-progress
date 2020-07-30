@@ -1,6 +1,8 @@
 import { useInterval } from './useInterval';
 import { useState, useEffect } from 'react';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 export const useTaskProgress = () => {
   const [status, setStatus] = useState({
     name: 'disconnected',
@@ -12,7 +14,7 @@ export const useTaskProgress = () => {
   });
 
   async function fetchStatus() {
-    const response = await fetch('http://localhost:3001/status');
+    const response = await fetch(`${backendUrl}/status`);
     const { name, progress, actions } = await response.json();
     console.log(name, progress, actions);
     setStatus({
@@ -31,11 +33,11 @@ export const useTaskProgress = () => {
   return {
     status,
     run: async () => {
-      fetch('http://localhost:3001/start');
+      fetch(`${backendUrl}/start`);
       fetchStatus();
     },
     cancel:  async () => {
-      fetch('http://localhost:3001/cancel');
+      fetch(`${backendUrl}/cancel`);
       fetchStatus();
     },
   };

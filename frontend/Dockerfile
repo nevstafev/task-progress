@@ -14,9 +14,6 @@ RUN npm i && npm run build
 FROM nginx:1.17-alpine
 ARG APP_DIR
 
-ENV PORT=8080 \
-  BACKEND_API=http://localhost:3000
-
 COPY --from=builder ${APP_DIR}/nginx/app.conf.template /etc/nginx/conf.d/
 COPY --from=builder ${APP_DIR}/entrypoint.sh /usr/local/bin/
 COPY --from=builder ${APP_DIR}/build /usr/share/nginx/html

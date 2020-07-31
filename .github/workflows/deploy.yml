@@ -30,6 +30,9 @@ jobs:
           heroku_email: ${{secrets.EMAIL}}
           usedocker: true
           appdir: frontend
+          docker_build_args: |
+            BACKEND_API
+            PORT
         env:
           PORT: 8080
           BACKEND_API: https://task-progress-backend.herokuapp.com

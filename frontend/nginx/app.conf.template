@@ -30,12 +30,6 @@ server {
     proxy_redirect off;
   }
 
-  location ~* ^/.*/([^/].+.(css|js|svg|woff))$ {
-    alias /usr/share/nginx/html/$1;
-    access_log off;
-    expires 30d;
-  }
-
   location / {
     try_files $uri $uri/ /index.html =404;
   }

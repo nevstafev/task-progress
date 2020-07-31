@@ -12,7 +12,7 @@ export const useTaskProgress = () => {
   });
 
   async function fetchStatus() {
-    const response = await fetch('/status');
+    const response = await fetch('/api/status');
     const { name, progress, actions } = await response.json();
     console.log(name, progress, actions);
     setStatus({
@@ -31,11 +31,11 @@ export const useTaskProgress = () => {
   return {
     status,
     run: async () => {
-      fetch('/start');
+      fetch('/api/start');
       fetchStatus();
     },
     cancel:  async () => {
-      fetch('/cancel');
+      fetch('/api/cancel');
       fetchStatus();
     },
   };

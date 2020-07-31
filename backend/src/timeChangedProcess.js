@@ -1,29 +1,31 @@
 import state from './state.js';
 
+const task = state();
+
 const timeChangedProcess = {
   getStatus() {
-    return state.getState();
+    return task.getState();
   },
   start(iterations = 10) {
-    state.start();
-    state.setProgress(0, iterations);
+    task.start();
+    task.setProgress(0, iterations);
     let currentIterations = 0;
     const interval = setInterval(() => {
-      if (state.getState().name === 'canceled') {
+      if (task.getState().name === 'canceled') {
         clearInterval(interval);
         return;
       }
       if (currentIterations === iterations) {
         clearInterval(interval);
-        state.finish();
+        task.finish();
         return;
       }
       currentIterations += 1;
-      state.setProgress(currentIterations, iterations);
+      task.setProgress(currentIterations, iterations);
     }, 1000);
   },
   cancel() {
-    state.cancel();
+    task.cancel();
   }
 };
 

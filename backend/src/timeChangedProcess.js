@@ -11,8 +11,9 @@ export default () => {
       task.setProgress(0, iterations);
       let currentIterations = 0;
       const interval = setInterval(() => {
-        if (task.getState().name === 'canceled') {
+        if (task.getState().name === 'cancelling') {
           clearInterval(interval);
+          task.cancel();
           return;
         }
         currentIterations += 1;

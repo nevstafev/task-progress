@@ -26,6 +26,7 @@ function App() {
         {actions.some((action) => action === 'cancel') && (
           <button onClick={cancel}>Cancel</button>
         )}
+        {actions.length === 0 && <button disabled>{name}</button>}
       </header>
     </div>
   );

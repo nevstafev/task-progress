@@ -25,7 +25,7 @@ export default () => {
       state.current = finished;
     },
     cancel: () => {
-      state.current = canceled;
+      state.current = cancelling;
     },
     getState() {
       return 'inProgress';
@@ -53,6 +53,24 @@ export default () => {
     },
   };
   
+  const cancelling = {
+    start: () => {
+      throw new Error("Cancelling task can't be statred.");
+    },
+    finish: () => {
+      throw new Error("Cancelling task can't be finished.");
+    },
+    cancel: () => {
+      state.current = canceled;
+    },
+    getState() {
+      return 'cancelling';
+    },
+    getActions() {
+      return [];
+    },
+  };
+
   const canceled = {
     start: () => {
       state.current = inProgress;

@@ -26,7 +26,7 @@ export const useTaskProgress = () => {
     fetchStatus();
   }, []);
 
-  useInterval(fetchStatus, status.name === 'inProgress' ? 1000 : null);
+  useInterval(fetchStatus, status.name === 'inProgress' || status.name === 'cancelling' ? 1000 : null);
 
   return {
     status,

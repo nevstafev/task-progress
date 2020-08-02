@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import timeChangedProcess from './timeChangedProcess.js';
 
+const taskProgress = timeChangedProcess();
+
 const app = express();
 
 app.use(cors());
@@ -12,17 +14,17 @@ app.get('/health', (req, res) => {
 
 app.get('/start', (req, res) => {
   const { iterations } = req.params;
-  timeChangedProcess.start(iterations);
-  res.json(timeChangedProcess.getStatus());
+  taskProgress.start(iterations);
+  res.json(taskProgress.getStatus());
 });
 
 app.get('/status', (req, res) => {
-  res.json(timeChangedProcess.getStatus());
+  res.json(taskProgress.getStatus());
 });
 
 app.get('/cancel', (req, res) => {
-  timeChangedProcess.cancel();
-  res.json(timeChangedProcess.getStatus());
+  taskProgress.cancel();
+  res.json(taskProgress.getStatus());
 });
 
 app.use((err, req, res, next) => {

@@ -1,7 +1,6 @@
 export default () => {
   const idle = {
     start: () => {
-      console.log('Starting task...');
       state.current = inProgress;
     },
     finish: () => {
@@ -23,11 +22,9 @@ export default () => {
       throw new Error('Task already in progress.');
     },
     finish: () => {
-      console.log('Task is finished.');
       state.current = finished;
     },
     cancel: () => {
-      console.log('Canceling task...');
       state.current = canceled;
     },
     getState() {
@@ -40,7 +37,6 @@ export default () => {
   
   const finished = {
     start: () => {
-      console.log('Starting task...');
       state.current = inProgress;
     },
     finish: () => {
@@ -59,7 +55,6 @@ export default () => {
   
   const canceled = {
     start: () => {
-      console.log('Starting task...');
       state.current = inProgress;
     },
     finish: () => {
@@ -101,20 +96,26 @@ export default () => {
       total: 10,
     },
     finish() {
+      console.log('Finishing task...');
       this.current.finish();
     },
     cancel() {
+      console.log('Canceling task...');
       this.current.cancel();
     },
     start() {
+      console.log('Starting task...');
       this.current.start();
     },
     getState() {
-      return {
+      console.log('Retrieving state info...')
+      const stateInfo = {
         name: this.current.getState(),
         progress: this.progress,
         actions: this.current.getActions(),
       };
+      console.log(stateInfo);
+      return stateInfo;
     },
     setProgress(current, total) {
       this.progress.current = current;

@@ -13,8 +13,7 @@ export default class TimeChangedProcess {
   }
   
   start(iterations = 10) {
-    const currentStatus = this.task.getState();
-    if (currentStatus !== 'cancelled' && currentStatus !== 'idle' && currentStatus !== 'finished') {
+    if (!this.task.getActions().includes('start')) {
       return;
     }
     this.task.start();

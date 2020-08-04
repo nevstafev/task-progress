@@ -13,12 +13,11 @@ function App() {
     start,
     cancel,
   } = useTaskProgress();
-  const [iterations, setIterations] = useState(0);
-
 
   return (
     <div className="App">
       <header className="App-header">
+        <p>{state.toUpperCase()}</p>
         <TextualProgressBar total={total} current={current} name={state} />
         {actions.some((action) => action === 'start') && (
           <button onClick={start}>Start</button>

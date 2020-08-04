@@ -14,7 +14,7 @@ export const useTaskProgress = () => {
   async function fetchStatus() {
     const response = await fetch('/api/status');
     const { state, progress, actions } = await response.json();
-    console.log(state, progress, actions);
+
     setStatus({
       state,
       progress,

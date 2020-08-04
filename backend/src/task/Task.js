@@ -38,4 +38,8 @@ export default class Task {
   getState() {
     return this.state.getName();
   }
+
+  getActions() {
+    return this.state.getActions();
+  }
 }

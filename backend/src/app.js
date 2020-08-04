@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import timeChangedProcess from './timeChangedProcess.js';
+import TimeChangedProcess from './TimeChangedProcess.js';
 
-const taskProgress = timeChangedProcess();
+const taskProgress = new TimeChangedProcess();
 
 const app = express();
 

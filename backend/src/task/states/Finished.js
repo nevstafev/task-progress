@@ -6,4 +6,8 @@ export default class Finishing extends BaseState {
   start() {
     this.next('inProgress');
   }
+
+  getActions() {
+    return ['start'];
+  }
 }

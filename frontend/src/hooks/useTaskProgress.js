@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export const useTaskProgress = () => {
   const [status, setStatus] = useState({
-    name: 'disconnected',
+    state: 'disconnected',
     actions: [],
     progress: {
       current: 0,
@@ -13,10 +13,10 @@ export const useTaskProgress = () => {
 
   async function fetchStatus() {
     const response = await fetch('/api/status');
-    const { name, progress, actions } = await response.json();
-    console.log(name, progress, actions);
+    const { state, progress, actions } = await response.json();
+    console.log(state, progress, actions);
     setStatus({
-      name,
+      state,
       progress,
       actions,
     });
@@ -26,17 +26,17 @@ export const useTaskProgress = () => {
     fetchStatus();
   }, []);
 
-  useInterval(fetchStatus, status.name === 'inProgress' || status.name === 'cancelling' ? 1000 : null);
+  useInterval(fetchStatus, status.state === 'inProgress' || status.state === 'cancelling' || status.state === 'finishing' ? 500 : null);
 
   return {
     status,
-    run: async () => {
-      fetch('/api/start');
-      fetchStatus();
+    start: async () => {
+      await fetch('/api/start');
+      await fetchStatus();
     },
-    cancel:  async () => {
-      fetch('/api/cancel');
-      fetchStatus();
+    cancel: async () => {
+      await fetch('/api/cancel');
+      await fetchStatus();
     },
   };
 };

@@ -21,11 +21,12 @@ test('Canceling', () => {
   instance.start();
   instance.cancel();
 
-  expect(instance.getState().name).toEqual('canceled');
+  expect(instance.getState().name).toEqual('cancelling');
 });
 
 test('Start after cancel', () => {
   instance.start();
+  instance.cancel();
   instance.cancel();
   instance.start();
 

@@ -1,6 +1,8 @@
 import { useInterval } from './useInterval';
 import { useState, useEffect } from 'react';
 
+const longPullStatuses = ['inProgress', 'cancelling', 'finishing', 'disconnected'];
+
 export const useTaskProgress = () => {
   const [status, setStatus] = useState({
     state: 'disconnected',
@@ -26,7 +28,7 @@ export const useTaskProgress = () => {
     fetchStatus();
   }, []);
 
-  useInterval(fetchStatus, status.state === 'inProgress' || status.state === 'cancelling' || status.state === 'finishing' ? 500 : null);
+  useInterval(fetchStatus, longPullStatuses.includes(status.state) ? 1000 : null);
 
   return {
     status,

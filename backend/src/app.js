@@ -20,7 +20,7 @@ app.get('/task', (req, res) => {
 
 app.post('/task', (req, res) => {
   const { iterations } = req.body;
-  const task = new TimeChangedProcess(iterations);
+  const task = new TimeChangedProcess(Number(iterations));
   const id = v4();
   tasks[id] = task;
   res.json({ id, ...task.getStatus() });

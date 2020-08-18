@@ -1,8 +1,11 @@
 import Task from './task/Task.js';
 
 export default class TimeChangedProcess {
+  constructor(iterations = 10) {
+    this.progress = { current: 0, total: iterations };
+  }
+  
   task = new Task();
-  progress = { current: 0, total: 10 };
   
   getStatus() {
     return {
@@ -12,12 +15,11 @@ export default class TimeChangedProcess {
     }
   }
   
-  start(iterations = 10) {
+  start() {
     if (!this.task.getActions().includes('start')) {
       return;
     }
     this.task.start();
-    this.progress = { current: 0, total: iterations };
     let currentIterations = 0;
     const interval = setInterval(() => {
       if (this.task.getState() === 'cancelling') {
@@ -30,7 +32,7 @@ export default class TimeChangedProcess {
         this.task.finish();
         return;
       }
-      if (currentIterations === iterations) {
+      if (currentIterations === this.progress.total) {
         this.task.finish();
         return;
       }

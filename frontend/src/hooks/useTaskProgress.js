@@ -1,9 +1,9 @@
 import { useInterval } from './useInterval';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-const longPullStatuses = ['inProgress', 'cancelling', 'finishing', 'disconnected'];
+const longPullStatuses = ['inProgress', 'cancelling', 'finishing'];
 
-export const useTaskProgress = () => {
+export const useTaskProgress = (taskId) => {
   const [status, setStatus] = useState({
     state: 'disconnected',
     actions: [],
@@ -13,8 +13,8 @@ export const useTaskProgress = () => {
     },
   });
 
-  async function fetchStatus() {
-    const response = await fetch('/api/status');
+  const fetchStatus = useCallback(async () => {
+    const response = await fetch(`/api/task/${taskId}/status`);
     const { state, progress, actions } = await response.json();
 
     setStatus({
@@ -22,22 +22,22 @@ export const useTaskProgress = () => {
       progress,
       actions,
     });
-  }
+  }, [taskId])
 
   useEffect(() => {
     fetchStatus();
-  }, []);
+  }, [fetchStatus]);
 
   useInterval(fetchStatus, longPullStatuses.includes(status.state) ? 1000 : null);
 
   return {
     status,
     start: async () => {
-      await fetch('/api/start');
+      await fetch(`/api/task/${taskId}/work`, { method: 'post' });
       await fetchStatus();
     },
     cancel: async () => {
-      await fetch('/api/cancel');
+      await fetch(`/api/task/${taskId}/work`, { method: 'delete' });
       await fetchStatus();
     },
   };
